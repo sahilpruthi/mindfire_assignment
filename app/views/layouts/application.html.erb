@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MindFireAssignemnt</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+    <% if current_user.present? %>
+      <div class="sidenav">
+        <%= render 'layouts/left_sidebar'%>
+      </div>
+      <div class="main">
+        <%= render 'layouts/navbar'%>
+        <%= yield %>
+      </div>
+    <% else %>
+      <%= render 'layouts/navbar'%>
+      <%= yield %>
+    <% end %>  
+    
+  </body>
+</html>

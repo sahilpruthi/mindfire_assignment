@@ -1,0 +1,31 @@
+<table class="table">
+  <tr>
+    <th>Agency</th>
+    <th>Title</th>
+    <th>Link News</th>
+    <th>Click Count</th>
+  </tr>
+	  <% news.each do |news| %>
+		  <tr>
+		    <td><%= news.agency.name%></td>
+		    <td class="title"><%= news.news_title%></td>
+		    <td><%= link_to 'link_news', news.news_link, target: :_blank, id: news.id, class: 'increase_count' %></td>
+		    <td class = "news_count_<%= news.id%>"><%= news.click_count%></td>
+		  </tr>
+	  <% end %>
+</table>	
+
+<script type="text/javascript">
+	$(".increase_count").click(function(){
+		id = $(this).attr('id')
+		$.ajax({
+	    type: 'PATCH',
+	    url: "/news/"+ id +"/increase_count",
+	    beforeSend: function(){},
+	    complete: function(){},
+	    error: function(msg){
+	    	console.log(msg)
+	    }
+  	});
+	})
+</script>

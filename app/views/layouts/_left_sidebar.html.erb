@@ -1,0 +1,36 @@
+<%= link_to 'News', news_index_path%>
+<a href="#">Category</a>
+<%= hidden_field_tag 'cookie_ids', @cookie_ids %>
+<ul>
+<% Category.all.each do |category| %>
+  <li>
+    <%= check_box_tag 'category_type', category.id, @cookie_ids.include?(category.id.to_s), id: category.id, class: 'category_type' %>
+    <%= h category.title %>
+  </li>
+<% end %>
+</ul>
+<script type="text/javascript">
+  category_ids = $('#cookie_ids').val().split('')
+  $('.category_type').change(function(){
+    current_ele_id = $(this).attr('id')
+    if(this.checked){
+      category_ids.push(current_ele_id)
+    }
+    else{
+      category_ids.splice(category_ids.indexOf(current_ele_id),1);
+    }
+    $.ajax({
+      type: 'POST',
+      dataType: 'script',
+      url: "/news/search",
+      data: {
+              'category_ids': category_ids
+            },
+      beforeSend: function(){},
+      complete: function(){},
+      error: function(msg){
+        console.log(msg)
+      }
+    });
+  })
+</script>

@@ -1,0 +1,2 @@
+class AgencyFeed < ApplicationRecord
+end
